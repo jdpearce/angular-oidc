@@ -1,6 +1,18 @@
-# AngularLib
+# AngularOidc
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.1.
+
+A quick and dirty (so far) implementation of a route guard packageable as an Angular npm module using ng-packagr.
+
+With help from : 
+
+[Building an Angular 4 Component Library with the Angular CLI and ng-packagr](https://medium.com/@nikolasleblanc/building-an-angular-4-component-library-with-the-angular-cli-and-ng-packagr-53b2ade0701e)
+
+[Juri Strumpflohner - Create and publish Angular libs like a Pro](https://www.youtube.com/watch?v=K4YMmwxGKjY)
+
+[SPA Authentiction using OpenID Connect, Angular CLI and oidc-client](https://www.scottbrady91.com/Angular/SPA-Authentiction-using-OpenID-Connect-Angular-CLI-and-oidc-client)
+
+[Angular Package Format](https://docs.google.com/document/d/1CZC2rcpxffTDfRDs6p1cfbmKNLA6x5O-NtkJglDaBVs/edit#)
 
 ## Development server
 

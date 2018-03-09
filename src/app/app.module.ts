@@ -2,9 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { AngularOidcModule } from './jhp/angular-oidc/angular-oidc.module';
+import { AngularOidcModule, OIDC_SETTINGS } from './jhp/angular-oidc';
 import { ProtectedComponent } from './protected/protected.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AppOidcSettings } from './app-oidc-settings';
 
 
 @NgModule({
@@ -17,7 +18,11 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     AngularOidcModule
   ],
-  providers: [],
+  providers: [,
+    {
+        provide: OIDC_SETTINGS,
+        useValue: AppOidcSettings
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

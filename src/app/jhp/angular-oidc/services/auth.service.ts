@@ -1,46 +1,28 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { UserManager, UserManagerSettings, User } from 'oidc-client';
 import { Observable } from 'rxjs/Observable';
 import { fromPromise } from 'rxjs/observable/fromPromise';
+import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
 
-    private user: User;
-    private manager = new UserManager(getClientSettings());
+    constructor(private userManager: UserManager, private router: Router) { }
 
     getUser(): Observable<Oidc.User> {
-        return fromPromise(this.manager.getUser());
+        return fromPromise(this.userManager.getUser());
     }
 
-    isLoggedIn(): boolean {
-        console.log(this.user);
-        return this.user != null && !this.user.expired;
+    startAuthentication(args?: any): Observable<any> {
+        return fromPromise(this.userManager.signinRedirect(args));
     }
 
-    getClaims(): any {
-        return this.user.profile;
+    isLoggedIn(): Observable<boolean> {
+        return this.getUser().pipe(map(user => Boolean(user && !user.expired)));
     }
 
-    startAuthentication(): Promise<void> {
-        return this.manager.signinRedirect();
+    completeAuthentication(): Observable<User> {
+        return fromPromise(this.userManager.signinRedirectCallback());
     }
-
-    completeAuthentication(): Promise<void> {
-        return this.manager.signinRedirectCallback().then(user => {
-            this.user = user;
-        });
-    }
-}
-
-export function getClientSettings(): UserManagerSettings {
-    return {
-        authority: 'https://demo.identityserver.io/',
-        client_id: 'implicit.reference',
-        redirect_uri: 'http://localhost:4200/auth-callback',
-        response_type: 'id_token token',
-        scope: 'openid profile api',
-        filterProtocolClaims: true,
-        loadUserInfo: false
-    };
 }

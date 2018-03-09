@@ -14,6 +14,10 @@ export class AddBearerTokenInterceptor implements HttpInterceptor {
         return url.toLowerCase().startsWith('/api/');
     }
 
+    private isUserinfoCall(url: string): boolean {
+        return url.toLowerCase().startsWith('/connect/userinfo')
+    }
+
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (!this.isApiCall(req.url)) {
             return next.handle(req);

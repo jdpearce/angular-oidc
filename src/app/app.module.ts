@@ -6,23 +6,19 @@ import { AngularOidcModule, OIDC_SETTINGS } from './jhp/angular-oidc';
 import { ProtectedComponent } from './protected/protected.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppOidcSettings } from './app-oidc-settings';
-
+import { PopupComponent } from './protected/popup.component';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ProtectedComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    AngularOidcModule
-  ],
-  providers: [,
-    {
-        provide: OIDC_SETTINGS,
-        useValue: AppOidcSettings
-    }],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent, ProtectedComponent, PopupComponent],
+    imports: [BrowserModule, AppRoutingModule, AngularOidcModule, NgbModule.forRoot()],
+    providers: [
+        {
+            provide: OIDC_SETTINGS,
+            useValue: AppOidcSettings
+        }
+    ],
+    entryComponents: [PopupComponent],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

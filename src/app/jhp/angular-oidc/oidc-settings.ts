@@ -1,9 +1,9 @@
-import { InjectionToken } from "@angular/core";
+import { InjectionToken } from '@angular/core';
 
 export const OIDC_SETTINGS = new InjectionToken<OidcSettings>('OidcSettings');
 
 export interface OidcSettings {
-    authority: string;
+    authority?: string;
     app_root?: string;
     client_id: string;
     logout_route?: string;

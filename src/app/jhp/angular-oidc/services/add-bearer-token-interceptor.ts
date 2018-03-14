@@ -15,11 +15,15 @@ export class AddBearerTokenInterceptor implements HttpInterceptor {
     }
 
     private isUserinfoCall(url: string): boolean {
-        return url.toLowerCase().startsWith('/connect/userinfo')
+        return url.toLowerCase().startsWith('/connect/userinfo');
+    }
+
+    private shouldAddBearerToken(url: string): boolean {
+        return this.isApiCall(url) || this.isUserinfoCall(url);
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (!this.isApiCall(req.url)) {
+        if (!this.shouldAddBearerToken(req.url)) {
             return next.handle(req);
         }
 
@@ -28,7 +32,7 @@ export class AddBearerTokenInterceptor implements HttpInterceptor {
             if (user) {
                 request = req.clone({
                     setHeaders: {
-                        Authorization: `Bearer ${user.access_token}`
+                        Authorization: `${user.token_type} ${user.access_token}`
                     }
                 });
             }
